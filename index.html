@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dayspring: the day you arrived</title>
+<meta name="description" content="Moon, weather, sky, music and history for the day you were born. Free, private, no account.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dayspring">
+<meta property="og:title" content="Dayspring: the day you arrived">
+<meta property="og:description" content="The moon, weather, sky, music and history of the day you were born.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{--t:#fff;--t2:rgba(235,235,245,.66);--t3:rgba(235,235,245,.46);--blue:#0a84ff;--sep:rgba(255,255,255,.09);--glass:rgba(34,34,38,.54);--f:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,system-ui,sans-serif;--ease:cubic-bezier(.22,1,.36,1);--spring:cubic-bezier(.34,1.56,.64,1);--sh:0%;--p:0;--ang:155deg}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{color-scheme:dark;background:#000}
+body{margin:0;background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.05),transparent 55%),#000;color:var(--t);font:400 17px/1.4 var(--f);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before,body::after{content:"";position:fixed;left:0;right:0;z-index:4;pointer-events:none;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+body::before{top:0;height:calc(env(safe-area-inset-top) + 56px);background:linear-gradient(to bottom,rgba(0,0,0,.82),transparent);-webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent);mask-image:linear-gradient(to bottom,#000 35%,transparent)}
+body::after{bottom:0;height:calc(env(safe-area-inset-bottom) + 92px);background:linear-gradient(to top,rgba(0,0,0,.9),transparent);-webkit-mask-image:linear-gradient(to top,#000 40%,transparent);mask-image:linear-gradient(to top,#000 40%,transparent)}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.75}
+#bg{position:fixed;z-index:0;width:min(120vw,900px);right:-25vw;top:-8vh;opacity:.52;pointer-events:none;will-change:transform,opacity;animation:moonin 2.6s var(--ease) backwards}
+#bg svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 85px rgba(255,255,255,.22))}
+@keyframes moonin{from{opacity:0;scale:.86}}
+@keyframes up{from{opacity:0;transform:translateY(22px) scale(.98)}}
+@keyframes spin{from{transform:rotate(-150deg) scale(.92);opacity:0}}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:.78}}
+@keyframes beat{0%,100%{transform:scale(1)}18%{transform:scale(1.28)}36%{transform:scale(.95)}54%{transform:scale(1.15)}}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.app{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 32px) 18px calc(env(safe-area-inset-bottom) + 132px)}
+.tab{display:none}.tab.on{display:block}
+.ld{animation:up 1s var(--ease) backwards;animation-delay:calc(var(--i)*90ms + 120ms)}
+h1{font-size:clamp(2.15rem,9vw,2.95rem);line-height:1.04;letter-spacing:-.032em;font-weight:700;margin:6px 0 10px;background:linear-gradient(180deg,#fff 42%,rgba(255,255,255,.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--t2);margin:0 0 26px;font-size:1.05rem;letter-spacing:-.01em}
+h3{font-size:13px;font-weight:600;color:var(--t2);margin:28px 0 9px 16px;display:flex;justify-content:space-between;align-items:baseline;letter-spacing:.02em;text-transform:uppercase}
+.glass,.g{position:relative;background:var(--glass);-webkit-backdrop-filter:blur(32px) saturate(210%) brightness(1.09);backdrop-filter:blur(32px) saturate(210%) brightness(1.09);box-shadow:inset 0 1px 0 0 rgba(255,255,255,.34),inset 0 -1px 0 0 rgba(255,255,255,.08),inset 0 -14px 28px rgba(255,255,255,.025),0 18px 48px rgba(0,0,0,.65);border-radius:24px;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.glass::before,.g::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(var(--ang,155deg),rgba(255,255,255,.64),rgba(255,255,255,.05) 34%,rgba(255,255,255,.04) 66%,rgba(255,255,255,.38));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
+.glass::after,.g::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;background:radial-gradient(240px circle at var(--mx,-999px) var(--my,-999px),rgba(255,255,255,.16),transparent 70%),linear-gradient(112deg,transparent 36%,rgba(255,255,255,.085) 48%,transparent 60%);background-size:auto,280% 100%;background-position:0 0,var(--sh) 0;background-repeat:no-repeat}
+.g{list-style:none;margin:0;padding:0;overflow:hidden}
+.g li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:13.5px 17px;border-bottom:.5px solid var(--sep);min-height:50px;transition:background .28s,transform .25s var(--ease)}
+.g li:last-child{border:0}
+.g li:active{background:rgba(255,255,255,.07)}
+.g li>span:first-child{color:var(--t);font-weight:450}
+.g li>b,.g li>span+span{font-weight:400;color:var(--t2);text-align:right;font-variant-numeric:tabular-nums}
+.g label{display:flex;justify-content:space-between;align-items:center;gap:14px;width:100%;cursor:pointer}
+input{font:inherit;color:var(--t);background:transparent;border:0;text-align:right;min-width:0;flex:1;padding:0;color-scheme:dark}
+input[type="date"],input[type="time"]{display:inline-flex;justify-content:flex-end;min-height:28px}
+input::-webkit-date-and-time-value{text-align:right;min-height:1.4em;display:inline-flex;align-items:center;justify-content:flex-end}
+input::placeholder{color:var(--t3)}
+input:focus{outline:0}
+.g li:focus-within{background:rgba(255,255,255,.08)}
+button{font:inherit;cursor:pointer;border:0;color:inherit}
+.btn{width:100%;height:54px;border-radius:18px;background:linear-gradient(180deg,#fff,#e8e8ed);color:#000;font-weight:600;font-size:17px;letter-spacing:-.01em;margin-top:20px;transition:transform .4s var(--spring),opacity .2s,box-shadow .4s;box-shadow:0 8px 28px rgba(255,255,255,.14),inset 0 1px 0 #fff}
+.btn:hover{box-shadow:0 0 38px rgba(255,255,255,.32)}
+.btn:active,.pill:active,.lnk:active{transform:scale(.95);opacity:.85}
+.pill{position:relative;height:42px;padding:0 16px;border-radius:21px;background:var(--glass);-webkit-backdrop-filter:blur(28px) saturate(200%);backdrop-filter:blur(28px) saturate(200%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.38),0 8px 24px rgba(0,0,0,.45);font-weight:500;font-size:14px;transition:transform .4s var(--spring),opacity .2s,background .3s}
+.pill:hover{background:rgba(58,58,64,.62)}
+.pill::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(var(--ang,155deg),rgba(255,255,255,.55),rgba(255,255,255,.04) 40%,rgba(255,255,255,.3));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.lnk{background:none;color:var(--blue);font-size:13px;font-weight:500;padding:0;text-transform:none;letter-spacing:0;transition:transform .4s var(--spring),opacity .2s}
+.note{font-size:13px;color:var(--t3);margin:10px 16px 0}
+#ac{display:none;margin-top:8px}
+#ac.on{display:block;animation:up .3s var(--ease) backwards}
+#ac li{cursor:pointer;font-size:15px;min-height:44px}
+#ac li small{color:var(--t2);font-size:13px}
+#res{display:none;margin-top:34px}
+.rv{opacity:0;transform:translateY(26px) scale(.975);transition:opacity .85s var(--ease) var(--d,0s),transform 1.05s var(--ease) var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.cert{text-align:center;padding:38px 22px 32px}
+.cert svg{width:132px;height:132px;filter:drop-shadow(0 0 34px rgba(255,255,255,.34));transition:transform .6s var(--spring)}
+.cert svg:hover{transform:scale(1.06)}
+.cert i{display:block;font-style:normal;color:var(--t2);font-size:14px}
+.cert .n{font-size:clamp(1.95rem,8vw,2.65rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin:8px 0 14px;word-break:break-word}
+.cert .d{font-size:1.2rem;font-weight:600;margin:2px 0 10px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:18px 0 0}
+.song{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.song img{width:56px;height:56px;border-radius:14px;object-fit:cover;filter:grayscale(.25) contrast(1.08);box-shadow:0 6px 18px rgba(0,0,0,.5);flex:none}
+.song-m{flex:1;min-width:0}
+.song-m b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-m span{display:block;font-size:13.5px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.pbtn{width:44px;height:44px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;flex:none;box-shadow:0 4px 16px rgba(255,255,255,.22);transition:transform .35s var(--spring)}
+.pbtn:active{transform:scale(.9)}
+.pbtn svg{width:18px;height:18px;fill:currentColor}
+.eq{display:inline-flex;align-items:flex-end;gap:2px;height:12px;margin-left:6px;vertical-align:middle}
+.eq i{width:2.5px;height:100%;background:var(--blue);border-radius:2px;animation:eq .6s ease-in-out infinite;transform-origin:bottom}
+.eq i:nth-child(2){animation-delay:.18s}.eq i:nth-child(3){animation-delay:.34s}
+.hb{display:inline-block;color:#ff453a;margin-right:5px;animation:beat .84s infinite}
+.wheel{padding:18px 14px 14px;text-align:center;margin-bottom:12px}
+.wheel svg{width:100%;max-width:320px;height:auto;touch-action:manipulation}
+.bodies{transform-origin:160px 160px}
+.wheel.in .bodies{animation:spin 2.2s var(--ease) backwards .15s}
+.planet{cursor:pointer;transition:transform .35s var(--spring),filter .3s}
+.planet:hover,.planet.sel{filter:drop-shadow(0 0 10px rgba(255,255,255,.78))}
+#winfo{font-size:14px;color:var(--t2);margin-top:6px;min-height:20px;font-weight:500;transition:opacity .25s}
+.arc{padding:20px 18px 16px;margin-bottom:12px}
+.arc svg{width:100%;height:auto;display:block;overflow:visible}
+.scb{display:flex;align-items:center;gap:12px;margin-top:12px}
+.scb input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:rgba(255,255,255,.14);outline:none}
+.scb input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.6);cursor:pointer;transition:transform .2s var(--spring)}
+.scb input[type="range"]::-webkit-slider-thumb:active{transform:scale(1.2)}
+.scb-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--t2);margin-top:6px;font-variant-numeric:tabular-nums}
+.hist li{display:block;line-height:1.45;cursor:pointer}
+.hist-row{display:flex;gap:12px;align-items:center}
+.hist-txt{flex:1;min-width:0}
+.hist b{color:var(--blue);margin-right:8px;font-weight:600}
+.hist img{width:48px;height:48px;border-radius:10px;object-fit:cover;filter:grayscale(.35) contrast(1.05);flex:none;background:rgba(255,255,255,.06)}
+.hist-more{display:none;margin-top:10px;padding-top:10px;border-top:.5px solid var(--sep);font-size:14px;color:var(--t2)}
+.hist li.open .hist-more{display:block;animation:up .3s var(--ease)}
+.sk{animation:pulse 1.5s ease-in-out infinite;color:var(--t3)!important}
+.err{color:#ff453a}
+#cpicks{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;scrollbar-width:none}
+#cpicks::-webkit-scrollbar{display:none}
+#cpicks .pill{height:36px;padding:0 14px;font-size:13px;white-space:nowrap;flex:none}
+#cres{margin-top:18px;display:grid;gap:12px}
+#cres .glass{padding:22px;text-align:center;animation:up .8s var(--ease) backwards}
+#cres .glass:nth-child(2){animation-delay:.1s}#cres .glass:nth-child(3){animation-delay:.2s}
+#cres svg.m92{width:92px;height:92px;filter:drop-shadow(0 0 22px rgba(255,255,255,.25))}
+#cres b{display:block;font-size:1.15rem;margin-top:8px}
+#cres span{color:var(--t2);font-size:15px}
+.who{cursor:pointer}.who small{display:block;color:var(--t2);margin-top:2px}
+.foot{margin-top:44px;text-align:center;opacity:.75}
+nav.glass,#hd{position:fixed;z-index:5;left:50%}
+nav.glass{bottom:calc(env(safe-area-inset-bottom) + 14px);width:min(92vw,400px);transform:translateX(-50%);display:flex;padding:6px;border-radius:32px;transition:width .65s var(--ease),bottom .65s var(--ease),transform .5s var(--ease),opacity .4s}
+nav.mini{width:176px}
+@media(max-width:768px){body:has(input:focus) nav.glass{transform:translate(-50%,150%);opacity:0;pointer-events:none}}
+nav button{position:relative;flex:1;background:none;display:grid;place-items:center;gap:2px;padding:7px 0;border-radius:26px;color:var(--t3);font-size:11px;font-weight:500;transition:color .4s,padding .55s var(--ease),font-size .45s var(--ease),transform .4s var(--spring)}
+nav button:active{transform:scale(.91)}
+nav.mini button{font-size:0;gap:0;padding:11px 0}
+nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s var(--spring)}
+nav button.on{color:#fff}nav button.on svg{transform:scale(1.12)}
+.ind{position:absolute;top:6px;bottom:6px;left:0;width:var(--w,0);transform:translateX(var(--x,0)) scaleX(var(--s,1));border-radius:26px;background:rgba(255,255,255,.18);box-shadow:inset 0 .5px 0 rgba(255,255,255,.58),inset 0 -10px 18px rgba(255,255,255,.06),0 6px 20px rgba(0,0,0,.45);transition:transform .55s var(--spring),width .55s var(--spring)}
+#hd{top:calc(env(safe-area-inset-top) + 10px);width:min(86vw,340px);height:46px;padding:0 16px;border-radius:23px;display:flex;align-items:center;gap:10px;transform:translate(-50%,-160%);transition:transform .65s var(--spring);cursor:pointer}
+#hd.on{transform:translate(-50%,0)}
+#hd svg{width:24px;height:24px;flex:none}
+#ht{font-weight:600;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hp{position:absolute;left:18px;right:18px;bottom:4px;height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+#hp::after{content:"";display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(var(--p))}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.45s;animation-timing-function:var(--ease)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="bg" aria-hidden="true"></div>
+<div id="hd" class="glass" role="button" tabindex="0" aria-label="Scroll to top"><span id="hm"></span><span id="ht">Dayspring</span><i id="hp"></i></div>
+<noscript><p class="err" style="padding:20px">Dayspring needs JavaScript turned on.</p></noscript>
+<div class="app">
+
+<section class="tab on" id="t-d">
+  <h1 class="ld">The day you arrived.</h1>
+  <p class="sub ld">The moon, weather, sky, music and history from the day you were born.</p>
+  <form id="f" class="ld">
+    <ul class="g">
+      <li><label>Name<input id="name" autocomplete="name" placeholder="Required" required></label></li>
+      <li><label>Date of birth<input id="date" type="date" min="1940-01-01" required></label></li>
+      <li><label>Birth time<input id="time" type="time"></label></li>
+      <li><label>City of birth<input id="city" autocomplete="off" placeholder="Required" required></label></li>
+    </ul>
+    <ul class="g" id="ac" role="listbox" aria-label="Suggested cities"></ul>
+    <p class="note">Birth time is optional. Everything stays on your device.</p>
+    <button class="btn" type="submit">Show my day</button>
+  </form>
+
+  <div id="res">
+    <div class="glass cert" id="cert"></div>
+    <div class="acts">
+      <button class="pill" id="png" type="button">Save card</button>
+      <button class="pill" id="story" type="button">Save story</button>
+      <button class="pill" id="wall" type="button">Lock screen</button>
+      <button class="pill" id="share" type="button">Share</button>
+      <button class="pill" id="save" type="button">Save person</button>
+    </div>
+    <h3>The day</h3><ul class="g" id="g1"></ul>
+    <h3>Soundtrack of your arrival</h3>
+    <div class="glass song" id="song"><span class="sk">Finding the #1 song from your arrival…</span></div>
+    <h3>Sun and daylight</h3>
+    <div class="glass arc" id="arcbox" style="display:none">
+      <div id="arcsvg"></div>
+      <div class="scb"><input type="range" id="scb" min="0" max="23" value="12" aria-label="Hour of the day"></div>
+      <div class="scb-lbl"><span id="scb-t">12:00</span><span id="scb-w">Drag to explore hourly sky & weather</span></div>
+    </div>
+    <ul class="g" id="sun"></ul>
+    <h3>Weather<button class="lnk" id="unit" type="button">Show °F</button></h3><ul class="g" id="wxg"></ul>
+    <h3>Sky at birth</h3>
+    <div class="glass wheel" id="wheelbox">
+      <div id="wheel"></div>
+      <div id="winfo">Tap any planet on the ring to inspect</div>
+    </div>
+    <ul class="g" id="skyg"></ul>
+    <p class="note">Positions along the zodiac, calculated on your device. Accurate to about a degree.</p>
+    <h3>Your life so far</h3><ul class="g" id="life"></ul>
+    <h3>Your age across the solar system</h3><ul class="g" id="planets"></ul>
+    <h3>Your birthday & cosmos</h3><ul class="g" id="bd"></ul>
+    <h3>Earth's pulse that day</h3><ul class="g" id="earth"></ul>
+    <h3>In the world that day</h3><ul class="g hist" id="hist"></ul>
+  </div>
+
+  <div class="foot">
+    <button class="pill" id="dlzip" type="button">Download Full Project (.zip)</button>
+  </div>
+</section>
+
+<section class="tab" id="t-c">
+  <h1>Compare two days.</h1>
+  <p class="sub">Two birthdays, a wedding, a first day at work.</p>
+  <div id="cpicks"></div>
+  <form id="cf">
+    <ul class="g">
+      <li><label>First date<input id="d1" type="date" min="1940-01-01" required></label></li>
+      <li><label>Second date<input id="d2" type="date" min="1940-01-01" required></label></li>
+    </ul>
+    <button class="btn" type="submit">Compare</button>
+  </form>
+  <div id="cres"></div>
+</section>
+
+<section class="tab" id="t-p">
+  <h1>Your people.</h1>
+  <p class="sub">Saved on this device only. Tap someone to open their day.</p>
+  <ul class="g" id="plist"></ul>
+</section>
+</div>
+
+<nav class="glass" aria-label="Sections">
+  <i class="ind"></i>
+  <button data-t="d" class="on" aria-label="Discover" aria-current="page"><svg viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>Discover</button>
+  <button data-t="c" aria-label="Compare"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="12" r="5.5"/><circle cx="15.5" cy="12" r="5.5"/></svg>Compare</button>
+  <button data-t="p" aria-label="People"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg>People</button>
+</nav>
+<svg width="0" height="0" style="position:fixed" aria-hidden="true"><defs id="rd"></defs></svg>
+
+<script>
+const $=s=>document.querySelector(s),SYN=29.530588853,JD0=2451550.1,R=Math.PI/180,mod=(a,n)=>((a%n)+n)%n,nf=n=>Math.round(n).toLocaleString('en-US');
+const RM=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches),UA=navigator.userAgent,CH=/Chrome\//.test(UA)&&!/CriOS|FxiOS|EdgiOS|OPiOS/.test(UA);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
+const wk=d=>d.toLocaleDateString('en-GB',{weekday:'long',timeZone:'UTC'});
+const parse=(s,t,off)=>new Date(new Date(s+'T'+(t||'12:00')+':00Z').getTime()-(off||0)*1e3);
+const jdOf=d=>d.getTime()/864e5+2440587.5;
+const rows=a=>a.map(r=>`<li><span>${r[0]}</span><span>${r[1]}</span></li>`).join('');
+const cn=(n,dc,s,id)=>`<span class="cnt"${id?` id="${id}"`:''} data-n="${n}" data-d="${dc||0}" data-s="${s||''}">${(dc?n.toFixed(dc):nf(n))+(s||'')}</span>`;
+const flag=cc=>cc&&cc.length==2?String.fromCodePoint(...[...cc.toUpperCase()].map(c=>127397+c.charCodeAt(0))):'';
+let CUR=null,W=null,F=false,TM=0,RID=0,GEO=null,ACT=0,AUD=null,MID=0;
+
+/* Twinkling Starfield Canvas */
+(function initStars(){
+  const c=$('#stars'),x=c.getContext('2d');let w,h,st=[];
+  function rsz(){w=c.width=innerWidth;h=c.height=innerHeight;st=Array.from({length:Math.min(110,Math.floor(w*h/11000))},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.3+.3,a:Math.random(),s:Math.random()*.015+.004}))}
+  rsz();addEventListener('resize',rsz,{passive:true});
+  function draw(){
+    x.clearRect(0,0,w,h);
+    const sy=scrollY*.06;
+    for(const p of st){
+      if(!RM)p.a+=p.s;
+      const al=.2+Math.abs(Math.sin(p.a))*.65,yy=mod(p.y-sy,h);
+      x.fillStyle=`rgba(245,243,234,${al.toFixed(2)})`;
+      x.beginPath();x.arc(p.x,yy,p.r,0,Math.PI*2);x.fill();
+    }
+    if(!RM)requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* Realistic Cratered Moon */
+function phase(p){const k=Math.cos(2*Math.PI*p);return{p,k,lit:Math.round((1-k)/2*100),name:p<.03||p>.97?'New Moon':p<.22?'Waxing Crescent':p<.28?'First Quarter':p<.47?'Waxing Gibbous':p<.53?'Full Moon':p<.72?'Waning Gibbous':p<.78?'Last Quarter':'Waning Crescent'}}
+function moonInfo(d){const age=mod(jdOf(d)-JD0,SYN);return{age,...phase(age/SYN)}}
+function geom(p,s){const k=Math.cos(2*Math.PI*p),r=s/2-3,c=s/2,rx=Math.abs(r*k),w=p<.5;return`M${c} ${c-r}A${r} ${r} 0 0 ${w?1:0} ${c} ${c+r}A${rx} ${r} 0 0 ${w?(k>0?0:1):(k>0?1:0)} ${c} ${c-r}Z`}
+function moon(d,s){const m=moonInfo(d);return{m,r:s/2-3,c:s/2,path:geom(m.p,s)}}
+function moonSVG(d,s,cls){
+  const o=moon(d,s),id='mc'+(++MID),c=o.c,r=o.r;
+  return`<svg${cls?` class="${cls}"`:''} viewBox="0 0 ${s} ${s}" role="img" aria-label="${o.m.name}, ${o.m.lit}% lit">
+    <defs><clipPath id="${id}"><path class="lit" data-s="${s}" data-p="${o.m.p}" d="${o.path}"/></clipPath></defs>
+    <circle cx="${c}" cy="${c}" r="${r}" fill="#1c1c21"/>
+    <circle cx="${c-.22*r}" cy="${c-.18*r}" r="${.26*r}" fill="rgba(255,255,255,.02)"/>
+    <g clip-path="url(#${id})">
+      <circle cx="${c}" cy="${c}" r="${r}" fill="#f5f3ea"/>
+      <ellipse cx="${c-.24*r}" cy="${c-.16*r}" rx="${.28*r}" ry="${.22*r}" fill="rgba(28,28,36,.11)" transform="rotate(-18 ${c-.24*r} ${c-.16*r})"/>
+      <ellipse cx="${c+.18*r}" cy="${c-.22*r}" rx="${.21*r}" ry="${.16*r}" fill="rgba(28,28,36,.1)" transform="rotate(14 ${c+.18*r} ${c-.22*r})"/>
+      <ellipse cx="${c+.26*r}" cy="${c+.08*r}" rx="${.18*r}" ry="${.14*r}" fill="rgba(28,28,36,.09)"/>
+      <ellipse cx="${c-.18*r}" cy="${c+.24*r}" rx="${.25*r}" ry="${.15*r}" fill="rgba(28,28,36,.08)"/>
+      <circle cx="${c-.06*r}" cy="${c+.52*r}" r="${.07*r}" fill="rgba(28,28,36,.09)"/>
+      <circle cx="${c-.32*r}" cy="${c-.02*r}" r="${.06*r}" fill="rgba(28,28,36,.08)"/>
+      <circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="rgba(0,0,0,.16)" stroke-width="${Math.max(1,r*.04)}"/>
+    </g>
+  </svg>`;
+}
+function sweep(els,pt,dur){if(RM)return;const t0=performance.now();(function f(t){const u=Math.min(1,(t-t0)/(dur||1800)),eased=1-Math.pow(1-u,3);els.forEach(e=>{const tp=pt!=null?pt:+e.dataset.p||.5,st=tp>.5?1:0,cur=st+(tp-st)*eased;e.setAttribute('d',geom(mod(cur,1),+e.dataset.s))});if(u<1)requestAnimationFrame(f)})(t0)}
+function setBg(d){$('#bg').innerHTML=moonSVG(d,600);$('#hm').innerHTML=moonSVG(d,24)}
+
+/* Sky: sun, moon and planets along the zodiac */
+const EL={Mercury:[.38709927,.20563593,7.00497902,252.2503235,77.45779628,48.33076593,.00000037,.00001906,-.00594749,149472.67411175,.16047689,-.12534081],Venus:[.72333566,.00677672,3.39467605,181.9790995,131.60246718,76.67984255,.0000039,-.00004107,-.0007889,58517.81538729,.00268329,-.27769418],Earth:[1.00000261,.01671123,-.00001531,100.46457166,102.93768193,0,.00000562,-.00004392,-.01294668,35999.37244981,.32327364,0],Mars:[1.52371034,.0933941,1.84969142,-4.55343205,-23.94362959,49.55953891,.00001847,.00007882,-.00813131,19140.30268499,.44441088,-.29257343],Jupiter:[5.202887,.04838624,1.30439695,34.39644051,14.72847983,100.47390909,-.00011607,-.00013253,-.00183714,3034.74612775,.21252668,.20469106],Saturn:[9.53667594,.05386179,2.48599187,49.95424423,92.59887831,113.66242448,-.0012506,-.00050991,.00193609,1222.49362201,-.41897216,-.28867794]};
+function helio(el,T){const[a0,e0,i0,L0,p0,n0,da,de,di,dL,dp,dn]=el,a=a0+da*T,e=e0+de*T,I=(i0+di*T)*R,w=p0+dp*T,N=n0+dn*T,M=mod(L0+dL*T-w,360)*R;let E=M;for(let k=0;k<9;k++)E=M+e*Math.sin(E);
+ const x=a*(Math.cos(E)-e),y=a*Math.sqrt(1-e*e)*Math.sin(E),o=(w-N)*R,n=N*R,co=Math.cos(o),so=Math.sin(o),cn=Math.cos(n),sn=Math.sin(n),ci=Math.cos(I);
+ return[(co*cn-so*sn*ci)*x+(-so*cn-co*sn*ci)*y,(co*sn+so*cn*ci)*x+(-so*sn+co*cn*ci)*y]}
+function sky(d){const jd=jdOf(d),T=(jd-2451545)/36525,e=helio(EL.Earth,T),res=[];
+ res.push(['Sun','\u2609\uFE0E',mod(Math.atan2(-e[1],-e[0])/R,360)]);
+ const dd=jd-2451545;res.push(['Moon','\u263D\uFE0E',mod(218.316+13.176396*dd+6.289*Math.sin((134.963+13.064993*dd)*R),360)]);
+ [['Mercury','\u263F\uFE0E'],['Venus','\u2640\uFE0E'],['Mars','\u2642\uFE0E'],['Jupiter','\u2643\uFE0E'],['Saturn','\u2644\uFE0E']].forEach(b=>{const q=helio(EL[b[0]],T);res.push([b[0],b[1],mod(Math.atan2(q[1]-e[1],q[0]-e[0])/R,360)])});return res}
+const SIGNS=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'],SG='\u2648\u2649\u264A\u264B\u264C\u264D\u264E\u264F\u2650\u2651\u2652\u2653',ELEM=['Fire','Earth','Air','Water'];
+function wheel(b,b2){const c=160,pt=(r,l)=>[c+r*Math.cos(Math.PI-l*R),c-r*Math.sin(Math.PI-l*R)];let s=`<svg viewBox="0 0 320 320" role="img" aria-label="Sun, Moon and planets along the zodiac"><circle cx="${c}" cy="${c}" r="150" fill="none" stroke="rgba(255,255,255,.22)"/><circle cx="${c}" cy="${c}" r="112" fill="none" stroke="rgba(255,255,255,.22)"/><circle cx="${c}" cy="${c}" r="66" fill="none" stroke="rgba(255,255,255,.08)" stroke-dasharray="2 4"/>`;
+ for(let i=0;i<12;i++){const a=pt(112,i*30),o=pt(150,i*30),g=pt(131,i*30+15);s+=`<line x1="${a[0]}" y1="${a[1]}" x2="${o[0]}" y2="${o[1]}" stroke="rgba(255,255,255,.2)"/><text x="${g[0]}" y="${g[1]+5}" fill="rgba(235,235,245,.52)" font-size="15" text-anchor="middle">${SG[i]}\uFE0E</text>`}
+ s+='<g class="bodies">';
+ const placed=[];
+ b.forEach(x=>{
+   const close=placed.some(p=>Math.abs(mod(x[2]-p+180,360)-180)<11);
+   placed.push(x[2]);
+   const rad=b2?92:(close?68:90),q=pt(rad,x[2]),lt=x[0]=='Sun'||x[0]=='Moon',sign=SIGNS[Math.floor(x[2]/30)],deg=(x[2]%30).toFixed(1);
+   s+=`<g class="planet" tabindex="0" role="button" data-lbl="${x[1]} ${x[0]} · ${deg}° ${sign}"><circle cx="${q[0]}" cy="${q[1]}" r="${b2?12:14}" fill="${lt?'#f5f3ea':'rgba(255,255,255,.16)'}" stroke="rgba(255,255,255,.28)" stroke-width=".5"/><text x="${q[0]}" y="${q[1]+5}" font-size="${b2?14:16}" text-anchor="middle" fill="${lt?'#000':'#fff'}">${x[1]}</text></g>`;
+ });
+ if(b2){
+   b2.forEach(x=>{
+     const q=pt(56,x[2]),lt=x[0]=='Sun'||x[0]=='Moon';
+     s+=`<g class="planet"><circle cx="${q[0]}" cy="${q[1]}" r="11" fill="${lt?'#0a84ff':'rgba(10,132,255,.22)'}" stroke="rgba(255,255,255,.35)" stroke-width=".5"/><text x="${q[0]}" y="${q[1]+4.5}" font-size="13" text-anchor="middle" fill="#fff">${x[1]}</text></g>`;
+   });
+ }
+ return s+'</g></svg>'}
+
+/* Lookups, Songs, Population & Cosmic Math */
+const STONE='Garnet,Amethyst,Aquamarine,Diamond,Emerald,Pearl,Ruby,Peridot,Sapphire,Opal,Topaz,Turquoise'.split(','),FLOWER='Carnation,Violet,Daffodil,Daisy,Lily of the valley,Rose,Larkspur,Gladiolus,Aster,Marigold,Chrysanthemum,Holly'.split(','),ANIMAL='Monkey,Rooster,Dog,Pig,Rat,Ox,Tiger,Rabbit,Dragon,Snake,Horse,Goat'.split(',');
+const HITS={1940:'In the Mood Glenn Miller',1945:'Sentimental Journey Les Brown',1950:'Goodnight Irene',1955:'Rock Around the Clock',1958:'Nel Blu Dipinto Di Blu',1960:'Theme from A Summer Place',1962:'Stranger on the Shore',1964:'I Want to Hold Your Hand Beatles',1965:'Satisfaction Rolling Stones',1966:'California Dreamin',1967:'Respect Aretha Franklin',1968:'Hey Jude Beatles',1969:'Sugar Sugar Archies',1970:'Bridge Over Troubled Water',1971:'Imagine John Lennon',1972:'American Pie Don McLean',1973:'Superstition Stevie Wonder',1974:'The Way We Were Barbra Streisand',1975:'Bohemian Rhapsody Queen',1976:'Dancing Queen ABBA',1977:'Dreams Fleetwood Mac',1978:'Stayin Alive Bee Gees',1979:'Don\'t Stop Til You Get Enough',1980:'Call Me Blondie',1981:'Bette Davis Eyes',1982:'Physical Olivia Newton-John',1983:'Every Breath You Take Police',1984:'When Doves Cry Prince',1985:'Everybody Wants to Rule the World',1986:'That\'s What Friends Are For',1987:'Walk Like an Egyptian',1988:'Faith George Michael',1989:'Like a Prayer Madonna',1990:'Vogue Madonna',1991:'Smells Like Teen Spirit Nirvana',1992:'End of the Road Boyz II Men',1993:'I Will Always Love You Whitney Houston',1994:'The Sign Ace of Base',1995:'Waterfalls TLC',1996:'Macarena Los Del Rio',1997:'Candle in the Wind 1997',1998:'Iris Goo Goo Dolls',1999:'Smooth Santana',2000:'Breathe Faith Hill',2001:'Hanging by a Moment Lifehouse',2002:'How You Remind Me Nickelback',2003:'In Da Club 50 Cent',2004:'Yeah Usher',2005:'We Belong Together Mariah Carey',2006:'Bad Day Daniel Powter',2007:'Irreplaceable Beyonce',2008:'Viva La Vida Coldplay',2009:'I Gotta Feeling Black Eyed Peas',2010:'TiK ToK Kesha',2011:'Rolling in the Deep Adele',2012:'Somebody That I Used to Know Gotye',2013:'Royals Lorde',2014:'Happy Pharrell Williams',2015:'Uptown Funk Mark Ronson',2016:'One Dance Drake',2017:'Shape of You Ed Sheeran',2018:'God\'s Plan Drake',2019:'Old Town Road Lil Nas X',2020:'Blinding Lights The Weeknd',2021:'Levitating Dua Lipa',2022:'As It Was Harry Styles',2023:'Flowers Miley Cyrus',2024:'Espresso Sabrina Carpenter',2025:'Die With A Smile Lady Gaga Bruno Mars',2026:'Luther Kendrick Lamar SZA'};
+const gen=y=>y<1946?'Silent Generation':y<1965?'Baby Boomer':y<1981?'Generation X':y<1997?'Millennial':y<2013?'Generation Z':'Generation Alpha';
+const wcode=c=>c==0?'Clear sky':c<=3?'Partly cloudy':c<=48?'Fog':c<=57?'Drizzle':c<=67?'Rain':c<=77?'Snow':c<=82?'Rain showers':c<=86?'Snow showers':'Thunderstorm';
+const ord=n=>n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:n%10<4?n%10:0]);
+const lifePath=s=>{let n=s.replace(/\D/g,'').split('').reduce((a,b)=>a+ +b,0);while(n>9&&n!=11&&n!=22&&n!=33)n=String(n).split('').reduce((a,b)=>a+ +b,0);return n};
+const tf=t=>F?Math.round(t*9/5+32)+' °F':t+' °C';
+function worldPop(y){const pts=[[1940,2.3],[1950,2.54],[1960,3.03],[1970,3.7],[1980,4.44],[1990,5.32],[2000,6.14],[2010,6.96],[2020,7.84],[2026,8.28]];for(let i=0;i<pts.length-1;i++){if(y<=pts[i+1][0]){const u=(y-pts[i][0])/(pts[i+1][0]-pts[i][0]);return(pts[i][1]+u*(pts[i+1][1]-pts[i][1])).toFixed(2)+' billion'}}return'8.3 billion'}
+function solarCycle(y,m){const ph=mod((y+(m-.5)/12-1996.4)/11,1),act=Math.sin(ph*Math.PI);return act>.7?'Solar Maximum (high aurora activity)':act>.35?'Moderate solar activity':'Solar Minimum (quiet sun)'}
+function nextMetonic(d,m,dd){const bp=moonInfo(d).p,cy=new Date().getUTCFullYear();for(let y=cy;y<cy+25;y++){const td=new Date(Date.UTC(y,m-1,dd,12)),df=Math.abs(mod(moonInfo(td).p-bp+.5,1)-.5);if(td>new Date()&&df<.035)return`${y} (age ${y-d.getUTCFullYear()})`}return`${d.getUTCFullYear()+Math.ceil((cy-d.getUTCFullYear())/19)*19}`}
+
+/* Network */
+async function geocodeList(q){const clean=q.split(',')[0].trim();if(clean.length<2)return[];const j=await(await fetch('https://geocoding-api.open-meteo.com/v1/search?count=5&name='+encodeURIComponent(clean))).json();return j.results||[]}
+async function geocode(q){if(GEO&&GEO.q===q)return GEO.g;const r=await geocodeList(q);return r[0]}
+async function weather(g,date){try{const j=await(await fetch(`https://archive-api.open-meteo.com/v1/archive?latitude=${g.latitude}&longitude=${g.longitude}&start_date=${date}&end_date=${date}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code,wind_speed_10m_max,sunrise,sunset,daylight_duration&hourly=temperature_2m,weather_code&timezone=auto`)).json();return j}catch(e){return null}}
+async function wiki(k,m,d){try{return(await(await fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/${k}/${m}/${d}`)).json())[k]||[]}catch(e){return[]}}
+async function fetchSong(y){
+  try{
+    let q=HITS[y];if(!q){const ky=Object.keys(HITS).map(Number).sort((a,b)=>Math.abs(a-y)-Math.abs(b-y))[0];q=HITS[ky]}
+    const j=await(await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(q)}&media=music&entity=song&limit=1`)).json();
+    return j.results&&j.results[0];
+  }catch(e){return null}
+}
+async function fetchQuakes(date){
+  try{
+    const j=await(await fetch(`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${date}T00:00:00&endtime=${date}T23:59:59&minmagnitude=4.5`)).json();
+    const f=j.features||[];if(!f.length)return{count:0};
+    f.sort((a,b)=>(b.properties.mag||0)-(a.properties.mag||0));
+    return{count:f.length,top:f[0].properties};
+  }catch(e){return null}
+}
+const pick=(l,y)=>{const x=l.filter(e=>e.year===y);return(x.length?x:l.slice().sort((a,b)=>Math.abs(a.year-y)-Math.abs(b.year-y))).slice(0,4)};
+
+function renderArc(hr){
+  const w=W&&W.daily,h=W&&W.hourly;
+  if(!w||!w.sunrise||!w.sunrise[0]){$(`#arcbox`).style.display='none';return}
+  $(`#arcbox`).style.display='block';
+  const sr=+(w.sunrise[0].slice(11,13))+w.sunrise[0].slice(14,16)/60,ss=+(w.sunset[0].slice(11,13))+w.sunset[0].slice(14,16)/60;
+  const u=hr/23,x=20+u*280,isDay=hr>=sr&&hr<=ss;
+  const y=isDay?72-Math.sin((hr-sr)/(ss-sr)*Math.PI)*52:72+Math.sin((hr<sr?(hr+24-ss)/(24-ss+sr):(hr-ss)/(24-ss+sr))*Math.PI)*20;
+  const srX=20+(sr/23)*280,ssX=20+(ss/23)*280;
+  $(`#arcsvg`).innerHTML=`<svg viewBox="0 0 320 96" aria-hidden="true">
+    <line x1="16" y1="72" x2="304" y2="72" stroke="rgba(255,255,255,.15)" stroke-dasharray="3 3"/>
+    <path d="M 20 82 Q ${srX} 72 ${(srX+ssX)/2} 16 Q ${ssX} 72 300 82" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+    <circle cx="${srX}" cy="72" r="3" fill="rgba(255,255,255,.45)"/><circle cx="${ssX}" cy="72" r="3" fill="rgba(255,255,255,.45)"/>
+    <circle cx="${x}" cy="${y}" r="9" fill="${isDay?'#fff':'#202024'}" stroke="#f5f3ea" stroke-width="2" style="filter:drop-shadow(0 0 12px rgba(255,255,255,.6))"/>
+  </svg>`;
+  $(`#scb-t`).textContent=String(hr).padStart(2,'0')+':00 '+(isDay?'· Daylight':'· Night');
+  if(h&&h.temperature_2m&&h.temperature_2m[hr]!=null){
+    $(`#scb-w`).textContent=`${tf(h.temperature_2m[hr])} · ${wcode(h.weather_code[hr])}`;
+  }
+}
+
+function renderWx(){const w=W&&W.daily,ok=w&&w.time&&w.temperature_2m_max[0]!=null;$('#unit').style.display=ok?'':'none';
+ $('#wxg').innerHTML=ok?rows([['Conditions',wcode(w.weather_code[0])],['High',tf(w.temperature_2m_max[0])],['Low',tf(w.temperature_2m_min[0])],['Rain',w.precipitation_sum[0]+' mm'],['Top wind',w.wind_speed_10m_max[0]+' km/h']]):'<li><span>No weather records for this place and date.</span></li>';
+ $('#sun').innerHTML=ok&&w.sunrise&&w.sunrise[0]?rows([['Sunrise',w.sunrise[0].slice(11)],['Sunset',w.sunset[0].slice(11)],['Length of day',Math.floor(w.daylight_duration[0]/3600)+' h '+Math.round(w.daylight_duration[0]%3600/60)+' min']]):'<li><span>No daylight data for this place and date.</span></li>';
+ renderArc(+$('#scb').value)}
+
+/* Motion: reveal on scroll, counters */
+function count(el){const n=+el.dataset.n,dc=+el.dataset.d,s=el.dataset.s||'',t0=performance.now();(function f(t){const u=Math.min(1,(t-t0)/1600),v=n*(1-Math.pow(1-u,4));el.textContent=(dc?v.toFixed(dc):nf(v))+s;if(u<1)requestAnimationFrame(f)})(t0)}
+const IO=window.IntersectionObserver?new IntersectionObserver(es=>es.forEach((e,i)=>{if(!e.isIntersecting)return;const t=e.target;t.style.setProperty('--d',i*70+'ms');t.classList.add('in');if(!RM)t.querySelectorAll('.cnt').forEach(count);IO.unobserve(t)}),{threshold:.1,rootMargin:'0px 0px -5% 0px'}):{observe:e=>e.classList.add('in'),unobserve(){}};
+function arm(){document.querySelectorAll('#res h3,#res .g,#res .glass,#res .acts').forEach(e=>{e.classList.remove('in');e.classList.add('rv');IO.observe(e)})}
+const skel=n=>Array(n).fill('<li><span class="sk">Loading records…</span><span class="sk">···</span></li>').join('');
+
+async function run(p){
+ const id=++RID;
+ if(AUD){AUD.pause();AUD=null}
+ if(!$('#t-d').classList.contains('on'))tab('d');$('#res').style.display='block';
+ $('#save').textContent='Save person';$('#share').textContent='Share';$('#ac').classList.remove('on');
+ if(p.time)$('#scb').value=+p.time.slice(0,2);else $('#scb').value=12;
+ let d=parse(p.date,p.time,0),[y,m,dd]=p.date.split('-').map(Number),mi=moonInfo(d);CUR={...p,d,place:p.city};W=null;
+ $('#cert').innerHTML='<i>Rebuilding your day…</i>';setBg(d);$('#ht').textContent=p.name+' · '+mi.name;$('#res').scrollIntoView({behavior:RM?'auto':'smooth'});
+ $('#wxg').innerHTML=skel(5);$('#sun').innerHTML=skel(3);$('#hist').innerHTML=skel(5);
+ $('#song').innerHTML='<span class="sk">Finding the #1 song from your arrival era…</span>';
+ $('#earth').innerHTML=rows([['World population (~'+y+')',worldPop(y)],['Solar cycle',solarCycle(y,m)],['Seismic activity','<span class="sk">Checking USGS archive…</span>']]);
+ let g=null;try{g=await geocode(p.city)}catch(e){}
+ if(id!==RID)return;
+ CUR.place=g?[g.name,g.admin1,g.country].filter(Boolean).join(', '):p.city;
+ CUR.coords=g?`${Math.abs(g.latitude).toFixed(2)}°${g.latitude>=0?'N':'S'}, ${Math.abs(g.longitude).toFixed(2)}°${g.longitude>=0?'E':'W'}`:'';
+ if(g){W=await weather(g,p.date)}
+ if(id!==RID)return;
+ if(W&&W.utc_offset_seconds){d=parse(p.date,p.time,W.utc_offset_seconds);mi=moonInfo(d);CUR.d=d}
+ const t=p.time?new Date('1970-01-01T'+p.time+':00Z').toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}):'';
+ $('#cert').innerHTML=`${moonSVG(d,132)}<i>This certifies the arrival of</i><div class="n">${esc(p.name)}</div><div class="d">${wk(d)}, ${fmt(d)}${t?' at '+t:''}</div><i>in ${esc(CUR.place)}</i><i style="margin-top:10px">${mi.name}, ${mi.lit}% lit</i>`;
+ sweep(document.querySelectorAll('#cert .lit,#bg .lit,#hm .lit'),mi.p);
+ const now=new Date(),days=Math.max(0,(now-d)/864e5),doy=Math.floor((Date.UTC(y,m-1,dd)-Date.UTC(y,0,0))/864e5),s=sky(d),sunSign=SIGNS[Math.floor(s[0][2]/30)];
+ $('#g1').innerHTML=rows([['Day of the week',wk(d)],['Moon phase',`${mi.name}, ${mi.lit}% lit`],['Moon age',mi.age.toFixed(1)+' days'],['Day of the year',ord(doy)+(new Date(y,1,29).getDate()==29?', leap year':'')],['Generation',gen(y)]]);
+ $('#wheel').innerHTML=wheel(s);
+ $('#winfo').textContent=`${s[0][1]} Sun · ${(s[0][2]%30).toFixed(1)}° ${sunSign} (tap any planet)`;
+ $('#skyg').innerHTML=rows(s.map(x=>[x[1]+' '+x[0],SIGNS[Math.floor(x[2]/30)]+' '+Math.floor(x[2]%30)+'°']));
+ const big=dt=>fmt(new Date(d.getTime()+dt*864e5));
+ $('#life').innerHTML=rows([
+   ['Days alive',cn(days)],
+   ['<i class="hb">♥</i>Heartbeats (live)',cn(days*103680,0,'','lv-hb')],
+   ['Breaths taken (live)',cn(days*23040,0,'','lv-br')],
+   ['Trips around the Sun',cn(days/365.25,2)],
+   ['Distance orbiting the Sun (live)',cn(days*2573000,0,' km','lv-km')],
+   ['New moons since birth',cn(days/SYN)],
+   ['Your 10,000th day',big(1e4)],
+   ['Your 1 billionth second',big(1e9/86400)]
+ ]);
+ const nextMars=fmt(new Date(d.getTime()+Math.ceil(days/686.98)*686.98*864e5));
+ $('#planets').innerHTML=rows([
+   ['Mercury years (88-day orbit)',cn(days/87.97,1,' yrs')],
+   ['Venus years (225-day orbit)',cn(days/224.7,1,' yrs')],
+   ['Mars years (687-day orbit)',cn(days/686.98,2,' yrs')],
+   ['Jupiter years (11.9-yr orbit)',cn(days/4332.59,2,' yrs')],
+   ['Next Martian birthday',nextMars]
+ ]);
+ let nb=new Date(Date.UTC(now.getUTCFullYear(),m-1,dd));if(nb<now)nb.setUTCFullYear(nb.getUTCFullYear()+1);
+ const tick=()=>{
+   const curNow=new Date(),s=Math.max(0,Math.floor((nb-curNow)/1e3));
+   const e=$('#cd');if(e)e.textContent=`${Math.floor(s/86400)}d ${Math.floor(s%86400/3600)}h ${Math.floor(s%3600/60)}m ${s%60}s`;
+   const liveDays=Math.max(0,(curNow-d)/864e5);
+   const hb=$('#lv-hb'),br=$('#lv-br'),km=$('#lv-km');
+   if(hb)hb.textContent=nf(liveDays*103680);
+   if(br)br.textContent=nf(liveDays*23040);
+   if(km)km.textContent=nf(liveDays*2573000)+' km';
+ };
+ $('#bd').innerHTML=rows([['Next birthday in','<span id="cd"></span>'],['Next twin-moon birthday',nextMetonic(d,m,dd)],['Golden birthday (age '+dd+')',y+dd],['Star sign',sunSign],['Chinese zodiac',ANIMAL[y%12]+(m<3?' (check Lunar New Year)':'')],['Birthstone',STONE[m-1]],['Birth flower',FLOWER[m-1]],['Life path number',lifePath(p.date)]]);
+ clearInterval(TM);tick();TM=setInterval(tick,1000);
+ renderWx();arm();
+ try{history.replaceState(null,'','?'+new URLSearchParams(p))}catch(e){}
+
+ /* Parallel fetches: Song, Quakes, Wikipedia History */
+ fetchSong(y).then(tr=>{
+   if(id!==RID)return;
+   if(!tr||!tr.previewUrl){$('#song').innerHTML=`<div class="song-m"><b>Era Classic (${y})</b><span>Audio preview unavailable in this region</span></div>`;return}
+   const art=(tr.artworkUrl100||'').replace('100x100','200x200');
+   $('#song').innerHTML=`<img src="${esc(art)}" alt="" loading="lazy"><div class="song-m"><b id="stitle">${esc(tr.trackName)}</b><span>${esc(tr.artistName)} · ${y} Era Hit</span></div><button type="button" class="pbtn" id="pbtn" aria-label="Play 30 second preview"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>`;
+   $('#pbtn').onclick=()=>{
+     if(!AUD){AUD=new Audio(tr.previewUrl);AUD.onended=()=>{$('#pbtn').innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';const eq=$('#stitle .eq');if(eq)eq.remove()}}
+     if(AUD.paused){AUD.play();$('#pbtn').innerHTML='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>';if(!$('#stitle .eq'))$('#stitle').insertAdjacentHTML('beforeend','<span class="eq"><i></i><i></i><i></i></span>')}
+     else{AUD.pause();$('#pbtn').innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';const eq=$('#stitle .eq');if(eq)eq.remove()}
+   };
+ });
+
+ fetchQuakes(p.date).then(q=>{
+   if(id!==RID)return;
+   const qTxt=!q?'Unavailable':q.count===0?'Calm day (no quakes ≥ M4.5)':`${q.count} tremors (strongest M${q.top.mag.toFixed(1)} near ${esc(q.top.place||'ocean')})`;
+   $('#earth').innerHTML=rows([['World population (~'+y+')',worldPop(y)],['Solar cycle',solarCycle(y,m)],['Seismic activity (M4.5+)',qTxt]]);
+ });
+
+ const M=String(m).padStart(2,'0'),D=String(dd).padStart(2,'0'),[ev,bi]=await Promise.all([wiki('events',M,D),wiki('births',M,D)]);
+ if(id!==RID)return;
+ const it=[...pick(ev,y).slice(0,3).map(e=>({y:e.year,t:e.text,p:e.pages&&e.pages[0]})),...pick(bi,y).slice(0,2).map(e=>({y:e.year,t:'Born: '+e.text,p:e.pages&&e.pages[0]}))];
+ $('#hist').innerHTML=it.length?it.map(i=>{
+   const img=i.p&&i.p.thumbnail&&i.p.thumbnail.source?`<img src="${esc(i.p.thumbnail.source)}" alt="" loading="lazy">`:'';
+   const ext=i.p&&i.p.extract?`<div class="hist-more">${esc(i.p.extract.slice(0,240))}… ${i.p.content_urls&&i.p.content_urls.desktop?`<a href="${esc(i.p.content_urls.desktop.page)}" target="_blank" rel="noopener" class="lnk" style="margin-left:6px">Wikipedia ↗</a>`:''}</div>`:'';
+   return`<li><div class="hist-row"><div class="hist-txt"><b>${i.y}</b>${esc(i.t)}</div>${img}</div>${ext}</li>`;
+ }).join(''):'<li><span>History could not be loaded. Try again shortly.</span></li>'}
+
+/* Save Card, Story & Lock Screen Wallpaper */
+function exportImg(mode){
+ const isWall=mode==='wall',isStory=mode==='story'||isWall;
+ const c=document.createElement('canvas'),W_PX=isWall?1290:1080,H=isWall?2796:(isStory?1920:1350);
+ c.width=W_PX;c.height=H;
+ const x=c.getContext('2d'),msz=isWall?520:540,o=moon(CUR.d,msz),f='-apple-system,"SF Pro Display",Inter,system-ui,sans-serif',cx=W_PX/2;
+ const my=isWall?920:(isStory?230:140);
+ const grd=x.createRadialGradient(cx,my+msz/2,30,cx,my+msz/2,W_PX*.75);
+ grd.addColorStop(0,isWall?'#101015':'#15151a');grd.addColorStop(1,'#000000');
+ x.fillStyle=grd;x.fillRect(0,0,W_PX,H);
+ /* Subtle starfield on exported image */
+ for(let i=0;i<90;i++){x.fillStyle=`rgba(255,255,255,${(Math.random()*.45+.1).toFixed(2)})`;x.beginPath();x.arc(Math.random()*W_PX,Math.random()*H,Math.random()*1.8+.4,0,Math.PI*2);x.fill()}
+ if(!isWall){x.strokeStyle='rgba(255,255,255,.16)';x.lineWidth=2;x.strokeRect(48,48,W_PX-96,H-96)}
+ x.save();x.translate(cx-msz/2,my);x.shadowColor='rgba(255,255,255,.28)';x.shadowBlur=85;x.fillStyle='#1c1c21';x.beginPath();x.arc(o.c,o.c,o.r,0,Math.PI*2);x.fill();
+ const p2d=new Path2D(o.path);x.fillStyle='#f5f3ea';x.fill(p2d);x.clip(p2d);
+ x.fillStyle='rgba(28,28,36,.1)';x.beginPath();x.arc(o.c-.22*o.r,o.c-.15*o.r,.24*o.r,0,Math.PI*2);x.fill();
+ x.beginPath();x.arc(o.c+.18*o.r,o.c-.2*o.r,.18*o.r,0,Math.PI*2);x.fill();
+ x.beginPath();x.arc(o.c-.16*o.r,o.c+.24*o.r,.2*o.r,0,Math.PI*2);x.fill();
+ x.restore();
+ const ty=isWall?1660:(isStory?960:860);
+ x.textAlign='center';x.fillStyle='rgba(235,235,245,.52)';x.font='500 32px '+f;x.fillText('THE DAY YOU ARRIVED',cx,ty-75);
+ x.fillStyle='#fff';x.font='700 90px '+f;x.fillText(CUR.name,cx,ty+18,W_PX-160);
+ x.fillStyle='rgba(235,235,245,.74)';x.font='500 42px '+f;x.fillText(wk(CUR.d)+', '+fmt(CUR.d),cx,ty+102,W_PX-160);
+ x.fillText(CUR.place+(CUR.coords?' · '+CUR.coords:''),cx,ty+162,W_PX-160);
+ x.font='400 36px '+f;x.fillStyle='rgba(235,235,245,.55)';x.fillText(`${o.m.name} · ${o.m.lit}% illuminated`,cx,ty+240,W_PX-160);
+ if(isStory){
+   const s=sky(CUR.d),sunSign=SIGNS[Math.floor(s[0][2]/30)],days=Math.round((new Date()-CUR.d)/864e5);
+   const bx=cx-430,by=ty+315;
+   x.fillStyle='rgba(255,255,255,.05)';x.fillRect(bx,by,860,250);
+   x.strokeStyle='rgba(255,255,255,.14)';x.strokeRect(bx,by,860,250);
+   x.fillStyle='#fff';x.font='600 38px '+f;
+   x.fillText(`\u2609 ${sunSign}   ·   ${nf(days)} days on Earth`,cx,by+105);
+   const w=W&&W.daily;if(w&&w.temperature_2m_max&&w.temperature_2m_max[0]!=null){
+     x.fillStyle='rgba(235,235,245,.68)';x.font='400 34px '+f;
+     x.fillText(`${wcode(w.weather_code[0])}, High ${tf(w.temperature_2m_max[0])} / Low ${tf(w.temperature_2m_min[0])}`,cx,by+180);
+   }
+ }
+ x.fillStyle='rgba(255,255,255,.75)';x.font='600 28px '+f;x.fillText('Dayspring',cx,H-110);
+ c.toBlob(async b=>{
+   if(!b)return;
+   const fn=`dayspring-${mode}.png`,file=new File([b],fn,{type:'image/png'});
+   if(navigator.canShare&&navigator.canShare({files:[file]})&&/Mobi|Android|iPhone|iPad/i.test(UA)){
+     try{await navigator.share({files:[file],title:'Dayspring'});return}catch(e){}
+   }
+   const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=fn;a.click();setTimeout(()=>URL.revokeObjectURL(u),4e3);
+ });
+}
+
+/* People & Compare Quick-Picks */
+const getP=()=>{try{return JSON.parse(localStorage.getItem('dsp')||'[]')}catch(e){return[]}};
+const putP=l=>{try{localStorage.setItem('dsp',JSON.stringify(l))}catch(e){}};
+function plist(){const l=getP(),now=new Date();$('#plist').innerHTML=l.length?l.map((p,i)=>{const[,m,d]=p.date.split('-').map(Number);let nb=new Date(Date.UTC(now.getUTCFullYear(),m-1,d));if(nb<now)nb.setUTCFullYear(nb.getUTCFullYear()+1);
+ return`<li class="who" data-i="${i}"><span>${esc(p.name)}<small>${fmt(parse(p.date))}, ${esc(p.city)}</small></span><span>in ${Math.ceil((nb-now)/864e5)} days <button class="lnk" data-del="${i}" aria-label="Remove ${esc(p.name)}">Remove</button></span></li>`}).join(''):'<li><span>No one saved yet. Open a day and tap Save person.</span></li>'}
+function renderCpicks(){const l=getP(),el=$('#cpicks');if(!l.length){el.style.display='none';return}el.style.display='flex';el.innerHTML=l.map((p,i)=>`<button type="button" class="pill" data-ci="${i}">${esc(p.name)}</button>`).join('')}
+
+/* Liquid glass: real refraction (Chrome, Edge, Android), throttled during transitions */
+let RN=0,NAV_TR=false;
+function refract(el,o){if(!CH||!window.ResizeObserver)return;o=o||{};const id='rf'+(++RN);$('#rd').insertAdjacentHTML('beforeend',`<filter id="${id}" color-interpolation-filters="sRGB"><feImage x="0" y="0" width="1" height="1" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="${o.s||34}" xChannelSelector="R" yChannelSelector="B"/></filter>`);
+ const fe=$('#'+id+' feImage'),upd=()=>{const w=Math.round(el.offsetWidth),h=Math.round(el.offsetHeight);if(!w||!h)return;const r=Math.min(o.r||22,h/2),z=Math.min(o.z||12,h/3),
+ svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><linearGradient id="r" x1="100%" y1="0%" x2="0%" y2="0%"><stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="#f00"/></linearGradient><linearGradient id="b" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#000"/><stop offset="100%" stop-color="#00f"/></linearGradient></defs><rect width="${w}" height="${h}" fill="#000"/><rect width="${w}" height="${h}" rx="${r}" fill="url(#r)"/><rect width="${w}" height="${h}" rx="${r}" fill="url(#b)" style="mix-blend-mode:difference"/><rect x="${z}" y="${z}" width="${w-2*z}" height="${h-2*z}" rx="${r}" fill="hsl(0 0% 50% / .93)" style="filter:blur(${z*.8}px)"/></svg>`;
+ fe.setAttribute('width',w);fe.setAttribute('height',h);fe.setAttribute('href','data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));
+ el.style.backdropFilter=`url(#${id}) blur(${o.b||5}px) saturate(1.9) brightness(1.1)`};
+ new ResizeObserver(()=>{if(el.tagName==='NAV'&&NAV_TR)return;upd()}).observe(el);
+ if(el.tagName==='NAV'){el.addEventListener('transitionstart',e=>{if(e.propertyName==='width')NAV_TR=true});el.addEventListener('transitionend',e=>{if(e.propertyName==='width'){NAV_TR=false;upd()}})}}
+
+/* Navigation, indicator, scroll & gyroscope tilt effects */
+const nav=$('nav'),ind=$('.ind');
+function place(mv){const b=nav.querySelector('button.on');if(!b)return;if(mv&&!RM){ind.style.setProperty('--s',1.18);setTimeout(()=>ind.style.setProperty('--s',1),230)}ind.style.setProperty('--x',b.offsetLeft+'px');ind.style.setProperty('--w',b.offsetWidth+'px')}
+function tab(t){const go=()=>{document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on',e.id=='t-'+t));nav.querySelectorAll('button').forEach(b=>{const on=b.dataset.t==t;b.classList.toggle('on',on);if(on)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});if(t=='p')plist();if(t=='c')renderCpicks();scrollTo(0,0);place(true)};if(document.startViewTransition&&!RM)document.startViewTransition(go);else go()}
+nav.querySelectorAll('button').forEach(b=>b.onclick=()=>tab(b.dataset.t));
+if(window.ResizeObserver)new ResizeObserver(()=>{ind.style.transition='none';place();requestAnimationFrame(()=>requestAnimationFrame(()=>ind.style.transition=''))}).observe(nav);else place();
+let ly=0,tk=0;
+addEventListener('scroll',()=>{if(tk)return;tk=1;requestAnimationFrame(()=>{tk=0;const y=scrollY,de=document.documentElement,mx=Math.max(1,de.scrollHeight-innerHeight);
+ de.style.setProperty('--p',Math.min(1,y/mx).toFixed(4));de.style.setProperty('--sh',(Math.abs((y*.22)%200-100))+'%');
+ de.style.setProperty('--ang',(140+(y*.08)%60).toFixed(1)+'deg');
+ const bg=$('#bg');bg.style.transform=`translate3d(0,${-y*.16}px,0) rotate(${y*.012}deg) scale(${1+Math.min(y,1400)/2600})`;bg.style.opacity=Math.max(.16,.52-y/2600);
+ $('#hd').classList.toggle('on',y>110);
+ if(y>ly+6&&y>140)nav.classList.add('mini');else if(y<ly-6||y<80)nav.classList.remove('mini');ly=y})},{passive:true});
+addEventListener('deviceorientation',e=>{if(e.gamma!=null&&!RM){document.documentElement.style.setProperty('--ang',(155+e.gamma*1.2).toFixed(1)+'deg')}},{passive:true});
+document.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const g=e.target.closest&&e.target.closest('.glass,.g');if(g){const r=g.getBoundingClientRect();g.style.setProperty('--mx',e.clientX-r.left+'px');g.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
+
+/* City Autocomplete, History Expand & Interactive Wheel Events */
+$('#city').addEventListener('input',e=>{
+  clearTimeout(ACT);const q=e.target.value.trim();
+  if(q.length<2){$('#ac').classList.remove('on');return}
+  ACT=setTimeout(async()=>{
+    try{
+      const r=await geocodeList(q);
+      if(!r.length){$('#ac').classList.remove('on');return}
+      $('#ac').innerHTML=r.map((g,i)=>`<li role="option" data-gi="${i}"><span>${flag(g.country_code)} ${esc(g.name)}</span><small>${esc([g.admin1,g.country].filter(Boolean).join(', '))}</small></li>`).join('');
+      $('#ac')._r=r;$('#ac').classList.add('on');
+    }catch(err){}
+  },220);
+});
+$('#ac').addEventListener('click',e=>{
+  const li=e.target.closest('li');if(!li||!$('#ac')._r)return;
+  const g=$('#ac')._r[+li.dataset.gi],label=[g.name,g.admin1,g.country].filter(Boolean).join(', ');
+  $('#city').value=label;GEO={q:label,g};$('#ac').classList.remove('on');
+});
+$('#wheelbox').addEventListener('click',e=>{
+  const p=e.target.closest('.planet');if(!p||!p.dataset.lbl)return;
+  document.querySelectorAll('#wheel .planet').forEach(el=>el.classList.remove('sel'));
+  p.classList.add('sel');$('#winfo').textContent=p.dataset.lbl;
+});
+$('#hist').addEventListener('click',e=>{
+  if(e.target.tagName==='A')return;
+  const li=e.target.closest('li');if(li&&li.querySelector('.hist-more'))li.classList.toggle('open');
+});
+$('#scb').addEventListener('input',e=>renderArc(+e.target.value));
+$('#hd').onclick=()=>scrollTo({top:0,behavior:RM?'auto':'smooth'});
+
+/* Form & Action Events */
+$('#f').addEventListener('submit',e=>{e.preventDefault();run({name:$('#name').value.trim(),date:$('#date').value,time:$('#time').value,city:$('#city').value.trim()}).catch(err=>{$('#res').style.display='block';$('#cert').innerHTML='<i class="err">Something went wrong: '+esc(err.message)+'. Check your connection and try again.</i>'})});
+$('#png').onclick=()=>CUR&&exportImg('card');
+$('#story').onclick=()=>CUR&&exportImg('story');
+$('#wall').onclick=()=>CUR&&exportImg('wall');
+$('#unit').onclick=()=>{F=!F;$('#unit').textContent=F?'Show °C':'Show °F';renderWx()};
+$('#share').onclick=async()=>{if(!CUR)return;const u=location.href,m=moonInfo(CUR.d),t=`${CUR.name} arrived on ${wk(CUR.d)}, ${fmt(CUR.d)} under a ${m.name} (${m.lit}% lit) in ${CUR.place}.`;try{if(navigator.share)await navigator.share({title:'Dayspring',text:t,url:u});else{await navigator.clipboard.writeText(u);$('#share').textContent='Link copied'}}catch(e){}};
+$('#save').onclick=()=>{if(!CUR)return;const l=getP().filter(p=>!(p.name==CUR.name&&p.date==CUR.date));l.push({name:CUR.name,date:CUR.date,time:CUR.time,city:CUR.city});putP(l);$('#save').textContent='Saved'};
+$('#plist').addEventListener('click',e=>{const dl=e.target.dataset.del;if(dl!==undefined){const l=getP();l.splice(+dl,1);putP(l);plist();return}const li=e.target.closest('.who');if(li){const p=getP()[+li.dataset.i];$('#name').value=p.name;$('#date').value=p.date;$('#time').value=p.time||'';$('#city').value=p.city;run(p).catch(()=>{})}});
+$('#cpicks').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const p=getP()[+b.dataset.ci];if(!p)return;if(!$('#d1').value||($('#d1').value&&$('#d2').value)){$('#d1').value=p.date;$('#d2').value=''}else{$('#d2').value=p.date;$('#cf').requestSubmit()}});
+$('#cf').addEventListener('submit',e=>{e.preventDefault();const a=parse($('#d1').value),b=parse($('#d2').value),gap=Math.round(Math.abs(b-a)/864e5),lo=a<b?a:b,hi=a<b?b:a;
+ let yy=hi.getUTCFullYear()-lo.getUTCFullYear(),mm=hi.getUTCMonth()-lo.getUTCMonth(),dd=hi.getUTCDate()-lo.getUTCDate();if(dd<0){mm--;dd+=new Date(Date.UTC(hi.getUTCFullYear(),hi.getUTCMonth(),0)).getUTCDate()}if(mm<0){yy--;mm+=12}
+ const ma=moonInfo(a),mb=moonInfo(b),align=Math.round((1-Math.abs(mod(ma.p-mb.p+.5,1)-.5)*2)*100);
+ const sa=sky(a),sb=sky(b),s1=Math.floor(sa[0][2]/30),s2=Math.floor(sb[0][2]/30),el1=ELEM[s1%4],el2=ELEM[s2%4];
+ const doubleDay=fmt(new Date(hi.getTime()+(hi-lo)));
+ const col=d=>{const m=moonInfo(d);return`<div class="glass">${moonSVG(d,92,'m92')}<b>${fmt(d)}</b><span>${wk(d)}<br>${m.name}, ${m.lit}% lit</span></div>`};
+ $('#cres').innerHTML=col(a)+`<div class="glass"><b style="font-size:2rem;letter-spacing:-.02em">${nf(gap)} days</b><span>${yy} years, ${mm} months, ${dd} days apart<br>Moon phase harmony: ${align}%<br>Sun elements: ${SIGNS[s1]} (${el1}) & ${SIGNS[s2]} (${el2})<br>2× age milestone: ${doubleDay}</span></div>`+col(b)+`<div class="glass wheel"><div style="max-width:260px;margin:0 auto">${wheel(sa,sb)}</div><span style="font-size:13px">Outer ring: ${fmt(a)} · Inner blue ring: ${fmt(b)}</span></div>`;
+ sweep(document.querySelectorAll('#cres .lit'),null,950)});
+
+/* Built-In 1-Click Full Project .ZIP Downloader */
+$('#dlzip').onclick=async()=>{
+  const btn=$('#dlzip');btn.textContent='Packing .zip…';
+  const enc=s=>new TextEncoder().encode(s);
+  const iconSvg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" fill="#000"/><circle cx="256" cy="256" r="150" fill="#202024"/><path d="M256 106a150 150 0 0 1 0 300a95 150 0 0 0 0-300z" fill="#f5f3ea"/></svg>\n`;
+  const swJs=`const C='dayspring-v6';\nconst ASSETS=['/','/icon.svg','/icon-192.png','/manifest.webmanifest'];\nconst HOSTS=['geocoding-api.open-meteo.com','archive-api.open-meteo.com','en.wikipedia.org','itunes.apple.com','earthquake.usgs.gov'];\nself.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(c=>c.addAll(ASSETS)).catch(()=>{}))});\nself.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));\nself.addEventListener('fetch',e=>{\n  if(e.request.method!=='GET')return;\n  const u=new URL(e.request.url);\n  if(HOSTS.includes(u.hostname)){\n    e.respondWith(caches.open(C).then(async c=>{\n      const hit=await c.match(e.request);if(hit)return hit;\n      const r=await fetch(e.request);if(r.ok)c.put(e.request,r.clone());return r;\n    }).catch(()=>caches.match(e.request)));return;\n  }\n  if(u.origin!==location.origin)return;\n  e.respondWith(fetch(e.request).then(r=>{if(r.ok){const c=r.clone();caches.open(C).then(x=>x.put(e.request,c));}return r;}).catch(()=>caches.match(e.request,{ignoreSearch:true})));\n});\n`;
+  const manifest=`{\n  "name": "Dayspring",\n  "short_name": "Dayspring",\n  "description": "The moon, weather, sky, music and history of the day you were born.",\n  "start_url": "/",\n  "display": "standalone",\n  "background_color": "#000000",\n  "theme_color": "#000000",\n  "icons": [\n    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },\n    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },\n    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },\n    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }\n  ]\n}\n`;
+  async function mkPng(sz){
+    const c=document.createElement('canvas');c.width=c.height=sz;const x=c.getContext('2d'),sc=sz/512;
+    x.fillStyle='#000';x.fillRect(0,0,sz,sz);x.scale(sc,sc);
+    x.fillStyle='#202024';x.beginPath();x.arc(256,256,150,0,Math.PI*2);x.fill();
+    x.fillStyle='#f5f3ea';x.fill(new Path2D('M256 106a150 150 0 0 1 0 300a95 150 0 0 0 0-300z'));
+    return new Uint8Array(await new Promise(r=>c.toBlob(b=>b.arrayBuffer().then(r),'image/png')));
+  }
+  const files=[
+    ['index.html',enc('<!doctype html>\n'+document.documentElement.outerHTML)],
+    ['sw.js',enc(swJs)],
+    ['manifest.webmanifest',enc(manifest)],
+    ['vercel.json',enc('{ "cleanUrls": true }\n')],
+    ['README.md',enc('# Dayspring\nStatic site, no build step.\nDeploy: upload these files to a GitHub repository, then on vercel.com choose Add New > Project > pick the repo > Deploy.\n')],
+    ['icon.svg',enc(iconSvg)],
+    ['icon-192.png',await mkPng(192)],
+    ['icon-512.png',await mkPng(512)]
+  ];
+  const crcTable=new Uint32Array(256);
+  for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;crcTable[n]=c}
+  const crc32=b=>{let c=0xffffffff;for(let i=0;i<b.length;i++)c=crcTable[(c^b[i])&0xff]^(c>>>8);return(c^0xffffffff)>>>0};
+  const chunks=[],cd=[];let offset=0;
+  for(const[name,data]of files){
+    const nb=enc(name),crc=crc32(data),lh=new Uint8Array(30+nb.length),dv=new DataView(lh.buffer);
+    dv.setUint32(0,0x04034b50,true);dv.setUint16(4,20,true);dv.setUint32(14,crc,true);dv.setUint32(18,data.length,true);dv.setUint32(22,data.length,true);dv.setUint16(26,nb.length,true);
+    lh.set(nb,30);chunks.push(lh,data);
+    const ch=new Uint8Array(46+nb.length),cdv=new DataView(ch.buffer);
+    cdv.setUint32(0,0x02014b50,true);cdv.setUint16(4,20,true);cdv.setUint16(6,20,true);cdv.setUint32(16,crc,true);cdv.setUint32(20,data.length,true);cdv.setUint32(24,data.length,true);cdv.setUint16(28,nb.length,true);cdv.setUint32(42,offset,true);
+    ch.set(nb,46);cd.push(ch);offset+=lh.length+data.length;
+  }
+  const cdLen=cd.reduce((a,b)=>a+b.length,0),eocd=new Uint8Array(22),edv=new DataView(eocd.buffer);
+  edv.setUint32(0,0x06054b50,true);edv.setUint16(8,files.length,true);edv.setUint16(10,files.length,true);edv.setUint32(12,cdLen,true);edv.setUint32(16,offset,true);
+  const blob=new Blob([...chunks,...cd,eocd],{type:'application/zip'}),u=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=u;a.download='dayspring-complete.zip';a.click();setTimeout(()=>URL.revokeObjectURL(u),4e3);
+  btn.textContent='Downloaded dayspring-complete.zip!';setTimeout(()=>btn.textContent='Download Full Project (.zip)',3e3);
+};
+
+(function(){const today=new Date().toISOString().slice(0,10);$('#date').max=$('#d1').max=$('#d2').max=today;setBg(new Date());
+ document.querySelectorAll('#t-d>.ld').forEach((e,i)=>e.style.setProperty('--i',i));
+ refract(nav,{r:32,s:44,z:14,b:4});refract($('#hd'),{r:23,s:34,z:12,b:4});document.querySelectorAll('.pill').forEach(b=>refract(b,{r:21,s:26,z:10,b:4}));
+ const q=new URLSearchParams(location.search);if(q.get('name')&&q.get('date')&&q.get('city')){const p={name:q.get('name'),date:q.get('date'),time:q.get('time')||'',city:q.get('city')};$('#name').value=p.name;$('#date').value=p.date;$('#time').value=p.time;$('#city').value=p.city;run(p).catch(()=>{})}
+ if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{})})();
+</script>
+</body>
+</html>
